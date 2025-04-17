@@ -1,4 +1,4 @@
-﻿import random
+import random
 import string
 
 
@@ -100,3 +100,37 @@ def taasta_parool(kasutajad, paroolid):
 
 Выводит новый пароль на экран.
 """
+
+
+#Новый код
+
+def salvesta_andmed(kasutajad, paroolid, failinimi="andmed.txt"):
+    with open(failinimi, "w", encoding="utf-8") as f:
+        for nimi, parool in zip(kasutajad, paroolid):
+            f.write(f"{nimi}:{parool}\n")
+
+"""Сохраняет список пользователей и паролей в текстовый файл в формате: kasutajanimi:parool"""
+
+def loe_andmed(failinimi="andmed.txt"):
+    kasutajad = []
+    paroolid = []
+    try:
+        with open(failinimi, "r", encoding="utf-8") as f:
+            for rida in f:
+                if ":" in rida:
+                    nimi, parool = rida.strip().split(":", 1)
+                    kasutajad.append(nimi)
+                    paroolid.append(parool)
+    except FileNotFoundError:
+        print("Andmefaili ei leitud, alustatakse tühjade andmetega.")
+    return kasutajad, paroolid
+
+"""Считывает данные из файла andmed.txt и возвращает списки пользователей и паролей."""
+
+def saada_paaniline_sonum(kasutajanimi, parool):
+    print(f"\n*** Saadetud e-kiri kasutajale {kasutajanimi} ***")
+    print("Teie parooli taastamise taotlus on töödeldud.")
+    print(f"Uus parool: {parool}")
+    print("***************************************\n")
+
+"""Имитирует отправку письма (выводит сообщение на экран с новым паролем)."""
